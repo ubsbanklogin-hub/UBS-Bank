@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UBS Bank</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f2f5fb;color:#25313d}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.demo-banner{background:#fff2d4;color:#795c1c;text-align:center;padding:13px;font-size:13px;font-weight:bold;letter-spacing:1px}
+
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{background:#fff;width:100%;max-width:430px;padding:35px;border:1px solid #e0e5eb;border-radius:20px;box-shadow:0 15px 40px #142f4912}
+.brand{display:flex;align-items:center;gap:13px;color:#142f49;font-size:23px;font-weight:bold;margin-bottom:28px}
+.brand-icon{width:48px;height:48px;border-radius:16px;background:#142f49;color:white;display:grid;place-items:center;font-size:25px}
+.login-card h1{font-size:29px;color:#142f49;margin-bottom:10px}
+.subtitle{color:#7b8494;line-height:1.5;margin-bottom:25px}
+label{display:block;font-weight:bold;font-size:14px;margin-bottom:9px}
+input{width:100%;padding:14px;border:1px solid #ccd5df;border-radius:9px;margin-bottom:19px;outline-color:#206da5}
+.primary{background:#206da5;color:white;border:0;border-radius:10px;padding:15px 20px;font-weight:bold}
+.full{width:100%}
+.primary:hover{background:#185987}
+.credentials{background:#f2f5fb;border-radius:10px;padding:14px;margin:18px 0;color:#4d5c6a;font-size:14px;line-height:1.8}
+.credentials strong{color:#142f49}
+.message{font-size:14px;color:#a12e2e;margin-top:14px;line-height:1.5}
+.small-note{font-size:12px;color:#7b8494;line-height:1.6;margin-top:18px}
+
+.navbar{min-height:76px;padding:10px max(8.5%,22px);display:flex;justify-content:space-between;align-items:center;background:#fff;border-bottom:1px solid #e1e5e9}
+.nav-brand{display:flex;align-items:center;gap:15px;color:#142f49;font-size:20px;font-weight:bold}
+.signout{background:#edf2f8;border:0;border-radius:10px;padding:15px 20px;color:#142f49;font-weight:bold}
+main{width:86%;max-width:1230px;margin:40px auto 60px}
+.date{color:#7b8494;margin-bottom:18px}
+h2{font-size:25px}
+.greeting{font-size:42px;color:#142f49;margin-bottom:12px}
+.welcome{color:#7b8494;font-size:19px;margin-bottom:35px}
+.balance-card{padding:36px;margin-bottom:27px;border-radius:20px;background:linear-gradient(115deg,#122e48,#205b89);color:white;box-shadow:0 15px 30px #142f4910}
+.balance-label{color:#d5e1ee;margin-bottom:15px}
+.balance{font-size:clamp(34px,4vw,53px);font-weight:bold;overflow-wrap:anywhere}
+.indicator{width:25px;height:17px;border-radius:20px;background:#ffffff20;margin:18px 0 30px}
+.account-row{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #ffffff2b;color:#d5e1ee}
+.account-row strong{color:white;text-align:right}
+.panel{background:white;border:1px solid #e0e5eb;border-radius:18px;padding:30px;margin-bottom:27px}
+.fee-panel{border-left:5px solid #d2a435}
+.fee-heading{display:flex;align-items:center;gap:15px;margin-bottom:20px}
+.warning{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff0c5;color:#795c1c;font-size:22px;font-weight:bold}
+.muted{color:#7b8494;margin-top:7px}
+.row{min-height:70px;border-top:1px solid #e0e5eb;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.fee-amount{color:#9a701f;font-weight:bold;text-align:right}
+.services-title{font-size:32px;margin-bottom:28px}
+.actions{display:flex;gap:15px;flex-wrap:wrap}
+.secondary{background:white;color:#142f49;border:1px solid #ccd5df;border-radius:10px;padding:16px 24px;font-weight:bold}
+.summary-row{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #e0e5eb}
+.positive{color:#287a58}
+.disclaimer{font-size:12px;line-height:1.6;color:#7b8494;margin-top:16px}
+footer{text-align:center;padding:0 20px 28px;color:#7b8494;font-size:12px}
+
+@media(max-width:650px){
+.navbar{padding:12px 16px}.nav-brand{font-size:17px;gap:9px}
+main{width:calc(100% - 30px);margin-top:27px}
+.greeting{font-size:32px}.welcome{font-size:17px}
+.balance-card,.panel{padding:23px 18px}
+.services-title{font-size:27px}
+.account-row{font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIGN-IN SCREEN -->
+<section id="loginScreen" class="login-wrap">
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-icon">B</div>
+      <span>UBS Bank</span>
+    </div>
+
+    <h1>Welcome back</h1>
+    <p class="subtitle">Sign in to view the dashboard.</p>
+
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input id="username" name="username" autocomplete="username"
+        placeholder="Enter username" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password"
+        autocomplete="current-password" placeholder="Enter password" required>
+
+      <button class="primary full" type="submit">Sign in</button>
+      <p id="loginMessage" class="message" role="alert"></p>
+    </form>
+
+    <div class="credentials">
+      <strong></strong><br>
+       <strong></strong><br>
+       <strong></strong>
+    </div>
+
+    <p class="small-note">
+      
+    </p>
+  </div>
+</section>
+
+<!-- DASHBOARD: SHOWN AFTER DEMO SIGN-IN -->
+<section id="dashboardScreen" class="hidden">
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">U</div>
+      <span>UBS Bank</span>
+    </div>
+    <button class="signout" id="signOutButton">Sign out</button>
+  </header>
+
+  <div class="demo-banner">BANK VERIFIED</div>
+
+  <main>
+    <p class="date" id="currentDate"></p>
+    <h1 class="greeting">Good morning, Brown</h1>
+    <p class="welcome">Welcome back, Steven Brown.</p>
+
+    <section class="balance-card">
+      <p class="balance-label">Account Balance</p>
+      <div class="balance">$155,000,000.00</div>
+      <div class="indicator"></div>
+      <div class="account-row"><span>Account holder</span><strong>Steven Brown</strong></div>
+      <div class="account-row"><span>Account status</span><strong>Business Accounts</strong></div>
+    </section>
+
+    <section class="panel fee-panel">
+      <div class="fee-heading">
+        <div class="warning">!</div>
+        <div>
+          <h2>Fee information</h2>
+          <p class="muted">Fee</p>
+        </div>
+      </div>
+      <div class="row">
+        <span>Fee Amount</span>
+        <strong class="fee-amount">-$50,000.00</strong>
+      </div>
+      <p class="disclaimer">.</p>
+    </section>
+
+    <section class="panel">
+      <h2 class="services-title">Account services</h2>
+      <div class="actions">
+        <button class="primary" data-service="Transfer">Transfer</button>
+        <button class="secondary" data-service="Withdraw">Withdraw</button>
+      </div>
+      <p id="serviceMessage" class="muted" aria-live="polite"></p>
+    </section>
+
+    <section class="panel">
+      <div class="summary-row">
+        <strong>Account Balance</strong>
+        <strong class="positive">+$155,000,000.00</strong>
+      </div>
+      <div class="summary-row">
+        <span>Fee</span>
+        <strong>-$50,000.00</strong>
+      </div>
+      <p class="disclaimer"></p>
+    </section>
+  </main>
+
+  <footer></footer>
+</section>
+
+<script>
+const loginScreen = document.getElementById("loginScreen");
+const dashboardScreen = document.getElementById("dashboardScreen");
+const loginForm = document.getElementById("loginForm");
+const loginMessage = document.getElementById("loginMessage");
+
+loginForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const username = document.getElementById("username").value.trim().toLowerCase();
+  const password = document.getElementById("password").value;
+
+  // Client-side demo check only; not secure authentication.
+  if (username === "steven brown" && password === "brown@850") {
+    loginScreen.classList.add("hidden");
+    dashboardScreen.classList.remove("hidden");
+
+    document.getElementById("currentDate").textContent =
+      new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+
+    window.scrollTo(0, 0);
+  } else {
+    loginMessage.textContent =
+      "Those demo details do not match. Please check the demo credentials shown below.";
+  }
+});
+
+document.getElementById("signOutButton").addEventListener("click", function() {
+  dashboardScreen.classList.add("hidden");
+  loginScreen.classList.remove("hidden");
+  loginForm.reset();
+  loginMessage.textContent = "";
+  window.scrollTo(0, 0);
+});
+
+document.querySelectorAll("[data-service]").forEach(function(button) {
+  button.addEventListener("click", function() {
+    document.getElementById("serviceMessage").textContent =
+      button.dataset.service +
+      " is a demo interaction only. No real transaction was made.";
+  });
+});
+</script>
+
+</body>
+</html>
